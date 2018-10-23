@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Grid from './Grid'
+import Slider from 'rc-slider';
+
 import './App.css';
+import 'rc-slider/assets/index.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="controls">
+          <Slider className="default volume" />
+          <Slider className="default frequency" />
+          <Slider className="default carrier" />
+          <Slider className="default modulation" />
+        </div>
+        
+        <div className="seq">
+
+          <Grid className="grid" />
+          <Grid className="grid" />
+        </div>
+
       </div>
     );
   }
