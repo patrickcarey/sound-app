@@ -3,21 +3,20 @@ import Button from './button';
 
 import './App.css';
 
+const Step = ({ step = [], index, toggleButton }) => (
+  <div className="grid-step">
+    <h1>{index + 1}</h1>
+    {step.map(props => <Button toggleButton={toggleButton} {...props} />)}
+  </div>
+);
+
 class Grid extends Component {
   render() {
+    const { gridLayout, toggleButton } = this.props;
+
     return (
       <div className="Grid">
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <Button className="Button-push" />
-        <header className="App-header"></header>
+        {gridLayout.map((step, index) => <Step toggleButton={toggleButton} step={step} index={index} />)}
       </div>
     );
   }
