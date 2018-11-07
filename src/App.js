@@ -21,6 +21,8 @@ function generateInitialGridState({ width = 1, height = 1}) {
   return outerMatrix;
 }
 
+
+
 class App extends Component {
   state = {
     gridLayout: generateInitialGridState({ width: 8, height: 3 })
@@ -39,12 +41,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="controls">
-          <Slider className="default volume" />
-          <Slider className="default frequency" />
-          <Slider className="default carrier" />
-          <Slider className="default modulation" />
-        </div>
         
         <div className="seq">
           <Grid
