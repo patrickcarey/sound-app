@@ -17,15 +17,17 @@ function generateInitialGridState({ width = 1, height = 1}) {
     }
     outerMatrix.push(innerMatrix);
   }
-
   return outerMatrix;
 }
 
 
 
 class App extends Component {
+
   state = {
-    gridLayout: generateInitialGridState({ width: 8, height: 3 })
+    gridLayout: generateInitialGridState({ width: 8, height: 3 }),
+    steps: 8,
+    step: 0
   }
 
   toggleButton = buttonNumber => this.setState(previous => {
@@ -38,15 +40,37 @@ class App extends Component {
     return previous;
   });
 
+  setSeqStep = stepIndex => this.setState(previous => {
+    if(this.state.step === stepIndex) {
+      console.log(previous.gridLayout[stepIndex]);
+    }
+  });
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.setSteps(),
+      500
+    );
+  }
+
+  setSteps() {
+    this.setState(previous => {
+      previous.step = previous.step <= previous.steps - 1 ? previous.step += 1 : 0;
+      return previous;
+    });
+  }
+
+
   render() {
     return (
       <div className="App">
-        
+        <a className="on-off">Start/Stop</a>
         <div className="seq">
           <Grid
             className="grid"
             toggleButton={this.toggleButton}
-            gridLayout={this.state.gridLayout} />
+            gridLayout={this.state.gridLayout}
+            seqStep={this.setSeqStep} />
         </div>
 
       </div>

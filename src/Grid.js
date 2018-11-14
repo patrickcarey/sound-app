@@ -7,13 +7,13 @@ import './App.css';
 class Grid extends Component {
   render() {
 
-    const { gridLayout, toggleButton } = this.props;
+    const { gridLayout, toggleButton, seqStep } = this.props;
 
     return (
       <div className="Grid">
 
 
-        {gridLayout.map((step, index) => <Step toggleButton={toggleButton} step={step} index={index} />)}
+        {gridLayout.map((step, index) => <Step toggleButton={toggleButton} step={step} index={index} seqStep={seqStep(index)} />)}
       </div>
     );
   }
