@@ -40,16 +40,18 @@ class App extends Component {
     return previous;
   });
 
-  setSeqStep = stepIndex => this.setState(previous => {
+  setSeqStep = stepIndex => {
     if(this.state.step === stepIndex) {
-      console.log(previous.gridLayout[stepIndex]);
+      return true;
+    } else {
+      return false;
     }
-  });
+  };
 
   componentDidMount() {
     this.timerID = setInterval(
       () => this.setSteps(),
-      500
+      1500
     );
   }
 

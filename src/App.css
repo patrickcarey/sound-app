@@ -33,7 +33,7 @@
   margin-right: 1rem;
 }
 
-.grid-step--active {
+.grid-step.active {
   background-color: red;
 }
 

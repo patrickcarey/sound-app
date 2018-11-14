@@ -13,7 +13,7 @@ class Grid extends Component {
       <div className="Grid">
 
 
-        {gridLayout.map((step, index) => <Step toggleButton={toggleButton} step={step} index={index} seqStep={seqStep(index)} />)}
+        {gridLayout.map((step, index) => <Step toggleButton={toggleButton} step={step} index={index} seqStep={()=>seqStep(index)} />)}
       </div>
     );
   }
