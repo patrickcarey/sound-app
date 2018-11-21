@@ -19,6 +19,10 @@
   background-color: #f4c3c2;
 }
 
+.Button--live {
+  background-color: #b099e6;
+}
+
 .Grid {
   width: 50%;
   margin:0 auto;
@@ -34,7 +38,7 @@
 }
 
 .grid-step.active {
-  background-color: red;
+  background-color: #afaab5;
 }
 
 .seq {
