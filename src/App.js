@@ -32,13 +32,7 @@ class App extends Component {
     steps: 8,
     step: 0,
     tempo: 500,
-    run: 0,
-    timerId: ()=> {
-      setInterval(
-        () => this.setSteps(),
-        this.state.tempo
-      );
-    }
+    run: 0
   }
 
   toggleButton = buttonNumber => this.setState(previous => {
@@ -60,7 +54,10 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.state.timerId();
+    setInterval(
+        () => this.setSteps(),
+        this.state.tempo
+      );
   }
 
   setSteps() {
