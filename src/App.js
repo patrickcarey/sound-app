@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import Grid from './Grid'
 import Slider from 'rc-slider';
-
+import Run from './Run';
 import './App.css';
 import 'rc-slider/assets/index.css';
+
+const width = 8;
+const height = 3;
 
 function generateInitialGridState({ width = 1, height = 1}) {
   let id = 0;
@@ -12,7 +15,7 @@ function generateInitialGridState({ width = 1, height = 1}) {
   for (let i = 0; i < width; i++) {
     const innerMatrix = [];
     for (let j = 0; j < height; j++) {
-      innerMatrix.push({ id, state: 'active' });
+      innerMatrix.push({ id, state: 'inactive' });
       id++;
     }
     outerMatrix.push(innerMatrix);
@@ -25,9 +28,17 @@ function generateInitialGridState({ width = 1, height = 1}) {
 class App extends Component {
 
   state = {
-    gridLayout: generateInitialGridState({ width: 8, height: 3 }),
+    gridLayout: generateInitialGridState({ width: width, height: height }),
     steps: 8,
-    step: 0
+    step: 0,
+    tempo: 500,
+    run: 0,
+    timerId: ()=> {
+      setInterval(
+        () => this.setSteps(),
+        this.state.tempo
+      );
+    }
   }
 
   toggleButton = buttonNumber => this.setState(previous => {
@@ -36,7 +47,7 @@ class App extends Component {
     const buttonColumn = Math.floor(buttonNumber / gridHeight);
     const buttonRow = buttonNumber % gridHeight;
     const previousButtonState = previous.gridLayout[buttonColumn][buttonRow].state;
-    previous.gridLayout[buttonColumn][buttonRow].state = previousButtonState === 'active' ? 'inactive' : 'active'; 
+    previous.gridLayout[buttonColumn][buttonRow].state = previousButtonState === 'inactive' ? 'active' : 'inactive'; 
     return previous;
   });
 
@@ -49,10 +60,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.setSteps(),
-      1500
-    );
+    this.state.timerId();
   }
 
   setSteps() {
@@ -62,12 +70,40 @@ class App extends Component {
     });
   }
 
+  setTempo(e) {
+    this.setState(previous => {
+      previous.tempo = e;
+      return previous;
+    });
+  }
+
+  toggleSequence() {
+    if(!this.state.run) {
+      this.setState(previous => {
+        previous.run = 1;
+        return previous;
+      })
+      //this.state.timerId();
+
+    } else if(this.state.run) {
+      
+      this.setState(previous => {
+        previous.run = 0;
+        return previous;
+      })
+      //clearInterval(this.state.timerId());
+    }
+  }
 
   render() {
     return (
       <div className="App">
-        <a className="on-off">Start/Stop</a>
         <div className="seq">
+          <Run 
+            toggleSequence={()=>this.toggleSequence()}
+            runValue={this.state.run} />
+          <Slider min={100} max={2000} defaultValue={500} className="Slider--tempo" onChange={(e)=>this.setTempo(e)} />
+
           <Grid
             className="grid"
             toggleButton={this.toggleButton}
