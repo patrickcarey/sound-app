@@ -51,7 +51,14 @@
   width: 50%;
 }
 
-.rc-slider.default {
-  width:40%;
+.Slider--tempo {
+  width:20% !important;
   margin: 15px 0px;
+}
+
+.Run-button {
+  font-size: 18px;
+    margin: 20px;
+    border-radius: 10px;
+    width: 100px;
 }

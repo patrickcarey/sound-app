@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Grid from './Grid'
 import Slider from 'rc-slider';
-
+import Run from './Run';
 import './App.css';
 import 'rc-slider/assets/index.css';
 
-const width = 10;
+const width = 8;
 const height = 3;
 
 function generateInitialGridState({ width = 1, height = 1}) {
@@ -32,6 +32,7 @@ class App extends Component {
     steps: 8,
     step: 0,
     tempo: 500,
+    run: 0,
     timerId: ()=> {
       setInterval(
         () => this.setSteps(),
@@ -59,7 +60,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-   this.state.timerId();
+    this.state.timerId();
   }
 
   setSteps() {
@@ -76,11 +77,31 @@ class App extends Component {
     });
   }
 
+  toggleSequence() {
+    if(!this.state.run) {
+      this.setState(previous => {
+        previous.run = 1;
+        return previous;
+      })
+      //this.state.timerId();
+
+    } else if(this.state.run) {
+      
+      this.setState(previous => {
+        previous.run = 0;
+        return previous;
+      })
+      //clearInterval(this.state.timerId());
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <a className="on-off">Start/Stop</a>
         <div className="seq">
+          <Run 
+            toggleSequence={()=>this.toggleSequence()}
+            runValue={this.state.run} />
           <Slider min={100} max={2000} defaultValue={500} className="Slider--tempo" onChange={(e)=>this.setTempo(e)} />
 
           <Grid
