@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from './Grid'
 import Slider from 'rc-slider';
 import Run from './Run';
+import Synth from './Synth';
 import './App.css';
 import 'rc-slider/assets/index.css';
 
@@ -9,6 +10,7 @@ const width = 8;
 const height = 3;
 
 function generateInitialGridState({ width = 1, height = 1}) {
+  console.log(Synth);
   let id = 0;
   const outerMatrix = [];
 
