@@ -7,7 +7,7 @@ import './App.css';
 class Grid extends Component {
   render() {
 
-    const { gridLayout, toggleButton, seqStep, voice } = this.props;
+    const { gridLayout, toggleButton, seqStep } = this.props;
 
     return (
       <div className="Grid">

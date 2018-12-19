@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from './Grid'
 import Slider from 'rc-slider';
 import Run from './Run';
-import { OSC, synthInit } from './Synth';
+import { synthInit } from './Synth';
 import './App.css';
 import 'rc-slider/assets/index.css';
 
