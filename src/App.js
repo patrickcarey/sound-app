@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from './Grid'
 import Slider from 'rc-slider';
 import Run from './Run';
+import { synthInit } from './Synth';
 import './App.css';
 import 'rc-slider/assets/index.css';
 
@@ -9,6 +10,7 @@ const width = 8;
 const height = 3;
 
 function generateInitialGridState({ width = 1, height = 1}) {
+  synthInit();
   let id = 0;
   const outerMatrix = [];
 
@@ -31,14 +33,8 @@ class App extends Component {
     gridLayout: generateInitialGridState({ width: width, height: height }),
     steps: 8,
     step: 0,
-    tempo: 500,
-    run: 0,
-    timerId: ()=> {
-      setInterval(
-        () => this.setSteps(),
-        this.state.tempo
-      );
-    }
+    tempo: 100,
+    run: 0
   }
 
   toggleButton = buttonNumber => this.setState(previous => {
@@ -60,7 +56,10 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.state.timerId();
+    setInterval(
+        () => this.setSteps(),
+        this.state.tempo
+      );
   }
 
   setSteps() {
@@ -108,7 +107,8 @@ class App extends Component {
             className="grid"
             toggleButton={this.toggleButton}
             gridLayout={this.state.gridLayout}
-            seqStep={this.setSeqStep} />
+            seqStep={this.setSeqStep}
+             />
         </div>
 
       </div>
